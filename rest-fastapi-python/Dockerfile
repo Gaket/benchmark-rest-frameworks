@@ -1,9 +1,9 @@
 # Copyright (c) 2021 Go Chronicles
-# 
+#
 # This software is released under the MIT License.
 # https://opensource.org/licenses/MIT
 
-FROM python:3.9.6-slim as pythonBuilder
+FROM python:3.13-slim as pythonBuilder
 RUN apt-get update && apt-get upgrade -y
 WORKDIR /app
 COPY . .
@@ -11,7 +11,7 @@ RUN python -m venv /venv
 ENV PATH="/venv/bin:$PATH"
 RUN pip install -U pip
 RUN pip install -r requirements.txt
-FROM python:3.9.6-alpine3.14 as pythonRuntime
+FROM python:3.13-alpine as pythonRuntime
 RUN apk update && apk upgrade
 WORKDIR /app
 COPY --from=pythonBuilder /app /app
